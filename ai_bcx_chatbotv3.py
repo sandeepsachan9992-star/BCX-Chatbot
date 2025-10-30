@@ -19,7 +19,8 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # -----------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_excel("data/Pos.xlsx")   # changed to Excel file
+    sheet_url = "https://docs.google.com/spreadsheets/d/17W8zKAaCSLoxyo8iVWIUsYz57--Jr0CM/edit?usp=sharing&ouid=109863943106437854760&rtpof=true&sd=true"
+    df = pd.read_excel(sheet_url, engine="openpyxl")
     df.columns = [c.strip().lower() for c in df.columns]
     return df
 
@@ -124,7 +125,7 @@ def compute_result(df, metrics, filters):
 # -----------------------------
 st.set_page_config(page_title="AI Powered Chatbot", page_icon="🤖")
 st.title("🤖 AI-Powered Chatbot")
-st.markdown("Ask me anything about your data such as - total profit, Revenue, unit sold, etc. !")
+st.markdown("Ask me anything about your data !")
 
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -145,8 +146,8 @@ if query:
 
     if not metrics:
         response = (
-            "🤔 That question doesn’t seem related to the sales data. "
-            "Please ask about profit, revenue, cost, or units sold."
+            "🤔 That question doesn’t seem related to the BCX data. "
+            "Please ask relevant info."
         )
     else:
         response = compute_result(df, metrics, filters)
