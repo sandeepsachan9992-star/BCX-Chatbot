@@ -135,7 +135,7 @@ for msg in st.session_state.history:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-query = st.chat_input("Ask your question about data...")
+query = st.chat_input("Ask your question about BCX data...")
 
 if query:
     st.session_state.history.append({"role": "user", "content": query})
