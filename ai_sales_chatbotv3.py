@@ -19,20 +19,23 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # -----------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/Sales.csv")
+    df = pd.read_excel("data/Pos.xlsx")   # changed to Excel file
     df.columns = [c.strip().lower() for c in df.columns]
     return df
 
 df = load_data()
 
-FILTER_COLUMNS = ['region', 'order priority', 'country', 'item type', 'sales channel']
+FILTER_COLUMNS = [
+    'locationname', 'productgroup', 'productgroup1', 'tier',
+    'membertype', 'agegroup', 'gender', 'state', 'mediatype'
+]
+
 
 # -----------------------------
 # ⚙️ Helper Functions
 # -----------------------------
 def get_numeric_columns(df):
-    numeric_cols = ['units sold', 'unit price', 'unit cost',
-                    'total revenue', 'total cost', 'total profit']
+    numeric_cols = ['salesamount', 'qty', 'spenthours', 'spenttime']
     return [c for c in numeric_cols if c in df.columns]
 
 def apply_filters(df, filters):
