@@ -123,3 +123,8 @@ websocket-client==1.8.0
 widgetsnbextension==4.0.11
 gspread
 requests
+streamlit
+pandas
+openpyxl
+numpy
+openai
